@@ -3,66 +3,65 @@
 
 [![Join the chat at https://gitter.im/mamedev/mame](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mamedev/mame?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Build status:
-
-| OS/Compiler   | Status        | 
-| ------------- |:-------------:| 
-| Linux/GCC and Clang | ![CI (Linux)](https://github.com/mamedev/mame/workflows/CI%20(Linux)/badge.svg) [![Build Status](https://travis-ci.org/mamedev/mame.svg?branch=master)](https://travis-ci.org/mamedev/mame) |
-| Windows/GCC and MSVC | ![CI (Windows)](https://github.com/mamedev/mame/workflows/CI%20(Windows)/badge.svg) |
-| macOS/Clang | ![CI (macOS)](https://github.com/mamedev/mame/workflows/CI%20(macOS)/badge.svg) |
-
-Static analysis status for entire build (except for third-party parts of project):
-
-[![Coverity Scan Status](https://scan.coverity.com/projects/5727/badge.svg?flat=1)](https://scan.coverity.com/projects/mame-emulator)
-
 What is MAME?
 =============
 
 MAME is a multi-purpose emulation framework.
 
-MAME's purpose is to preserve decades of software history. As electronic technology continues to rush forward, MAME prevents this important "vintage" software from being lost and forgotten. This is achieved by documenting the hardware and how it functions. The source code to MAME serves as this documentation. The fact that the software is usable serves primarily to validate the accuracy of the documentation (how else can you prove that you have recreated the hardware faithfully?). Over time, MAME (originally stood for Multiple Arcade Machine Emulator) absorbed the sister-project MESS (Multi Emulator Super System), so MAME now documents a wide variety of (mostly vintage) computers, video game consoles and calculators, in addition to the arcade video games that were its initial focus.
+This particular fork aims to be compiled on Debian / Ubuntu based Linux distributions. Tested on PopOS 20.04.
+
+How to get this particular fork?
+================================
+
+```
+git clone -b mame0226 --depth 1 https://github.com/TheCodeTherapy/mame.git mame0226
+```
+
+How to get the build dependencies?
+==================================
+
+```
+sudo apt install git build-essential python libsdl2-dev libsdl2-ttf-dev libfontconfig-dev qt5-default
+```
 
 How to compile?
 ===============
 
-If you're on a *NIX or OSX system, it could be as easy as typing
-
 ```
-make
+cd mame0226
+make TOOLS=1 REGENIE=1 -j5 ARCHOPTS=-U_FORTIFY_SOURCE
 ```
-
-for a MAME build,
-
-```
-make SUBTARGET=arcade
-```
-
-for an arcade-only build, or
-
-```
-make SUBTARGET=mess
-```
-
-for MESS build.
 
 See the [Compiling MAME](http://docs.mamedev.org/initialsetup/compilingmame.html) page on our documentation site for more information, including prerequisites for Mac OS X and popular Linux distributions.
 
-For recent versions of OSX you need to install [Xcode](https://developer.apple.com/xcode/) including command-line tools and [SDL 2.0](https://www.libsdl.org/download-2.0.php).
+How to compile the documentation?
+=================================
 
-For Windows users, we provide a ready-made [build environment](http://mamedev.org/tools/) based on MinGW-w64.
-
-Visual Studio builds are also possible, but you still need [build environment](http://mamedev.org/tools/) based on MinGW-w64.
-In order to generate solution and project files just run:
-
+## Basic required packages
 ```
-make vs2017
-```
-or use this command to build it directly using msbuild
-
-```
-make vs2017 MSBUILD=1
+sudo apt install python3-sphinx python3-pip
 ```
 
+## SVG handler dependencies
+```
+pip3 install sphinxcontrib-svg2pdfconverter
+```
+
+## PDF-via-LaTeX dependencies
+```
+sudo apt install latexmk texlive texlive-science texlive-formats-extra
+```
+
+## Compiling HTML docs
+```
+make html
+```
+_Note: the default output will be docs/build/html_
+
+## Compiling latexpdf
+```
+make latexpdf
+```
 
 Where can I find out more?
 =============
