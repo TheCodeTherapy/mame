@@ -1,0 +1,3 @@
+#!/bin/bash
+ARGS=("${*:1}") 
+./mame64 -inipath ./ini ${ARGS}
