@@ -44,6 +44,7 @@
 !/mame
 !/ini
 !/osd
+!/ui
 /.idea
 docs/build
 docs/source/_build
