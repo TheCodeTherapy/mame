@@ -41,6 +41,9 @@
 !/*.md
 !/*.bdf
 !/LICENSE
+!/mame
+!/ini
+!/osd
 /.idea
 docs/build
 docs/source/_build
