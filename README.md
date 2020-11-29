@@ -29,7 +29,7 @@ How to compile?
 
 ```
 cd mame0226
-make TOOLS=1 REGENIE=1 -j5 ARCHOPTS=-U_FORTIFY_SOURCE
+make TOOLS=1 REGENIE=1 -j$(nproc) ARCHOPTS=-U_FORTIFY_SOURCE
 ```
 
 See the [Compiling MAME](http://docs.mamedev.org/initialsetup/compilingmame.html) page on our documentation site for more information, including prerequisites for Mac OS X and popular Linux distributions.
