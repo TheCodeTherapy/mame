@@ -119,7 +119,7 @@ void main() {
 	// 18.0 = 6 colors (grayscale)
 	// 19.0 = 3 colors (grayscale)
 
-	palette_emulation = 14.0; // Color palette emulation	
+	palette_emulation = 0.0; // Color palette emulation	
 	
 	// ============ END of parameters
 
