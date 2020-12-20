@@ -496,9 +496,12 @@ void mame_ui_manager::display_startup_screens(bool first_time)
 				}
 				if (need_warning)
 				{
-					messagebox_text.append(_("\n\nPress any key to continue"));
-					set_handler(ui_callback_type::MODAL, std::bind(&mame_ui_manager::handler_messagebox_anykey, this, _1));
-					messagebox_backcolor = machine_info().warnings_color();
+					if (!machine().options().skip_gameinfo())
+					{
+						messagebox_text.append(_("\n\nPress any key to continue"));
+						set_handler(ui_callback_type::MODAL, std::bind(&mame_ui_manager::handler_messagebox_anykey, this, _1));
+						messagebox_backcolor = machine_info().warnings_color();
+					}
 				}
 			}
 			break;
@@ -953,6 +956,11 @@ bool mame_ui_manager::is_menu_active(void)
 
 uint32_t mame_ui_manager::handler_messagebox(render_container &container)
 {
+	// DISABLE INITIALIZING, LOADING & DECRYPTING MESSAGES
+	if (machine().options().skip_gameinfo())
+	{
+		return 0;
+	}
 	draw_text_box(container, messagebox_text.c_str(), ui::text_layout::LEFT, 0.5f, 0.5f, messagebox_backcolor);
 	return 0;
 }

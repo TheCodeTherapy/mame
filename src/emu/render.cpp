@@ -1369,24 +1369,28 @@ render_primitive_list &render_target::get_primitives()
 	}
 	else
 	{
-		// if we are not in the running stage, draw an outer box
-		render_primitive *prim = list.alloc(render_primitive::QUAD);
-		prim->bounds.set_xy(0.0f, 0.0f, (float)m_width, (float)m_height);
-		prim->full_bounds = prim->bounds;
-		prim->color.set(1.0f, 0.1f, 0.1f, 0.1f);
-		prim->texture.base = nullptr;
-		prim->flags = PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA);
-		list.append(*prim);
-
-		if (m_width > 1 && m_height > 1)
+		// DISABLE WHITE BORDER
+		if ( !m_manager.machine().options().skip_gameinfo() )
 		{
-			prim = list.alloc(render_primitive::QUAD);
-			prim->bounds.set_xy(1.0f, 1.0f, float(m_width - 1), float(m_height - 1));
+			// if we are not in the running stage, draw an outer box
+			render_primitive *prim = list.alloc(render_primitive::QUAD);
+			prim->bounds.set_xy(0.0f, 0.0f, (float)m_width, (float)m_height);
 			prim->full_bounds = prim->bounds;
-			prim->color.set(1.0f, 0.0f, 0.0f, 0.0f);
+			prim->color.set(1.0f, 0.1f, 0.1f, 0.1f);
 			prim->texture.base = nullptr;
 			prim->flags = PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA);
 			list.append(*prim);
+
+			if (m_width > 1 && m_height > 1)
+			{
+				prim = list.alloc(render_primitive::QUAD);
+				prim->bounds.set_xy(1.0f, 1.0f, float(m_width - 1), float(m_height - 1));
+				prim->full_bounds = prim->bounds;
+				prim->color.set(1.0f, 0.0f, 0.0f, 0.0f);
+				prim->texture.base = nullptr;
+				prim->flags = PRIMFLAG_BLENDMODE(BLENDMODE_ALPHA);
+				list.append(*prim);
+			}
 		}
 	}
 
